@@ -1,9 +1,21 @@
 @charset "UTF-8";
-.leaflet-gesture-handling-touch-warning:after, .leaflet-gesture-handling-scroll-warning:after {
+@-webkit-keyframes leaflet-gestures-fadein {
+  0% {
+    opacity: 0; }
+  100% {
+    opacity: 1; } }
+@keyframes leaflet-gestures-fadein {
+  0% {
+    opacity: 0; }
+  100% {
+    opacity: 1; } }
+
+.leaflet-container:after {
+  -webkit-animation: leaflet-gestures-fadein 0.8s backwards;
+          animation: leaflet-gestures-fadein 0.8s backwards;
   color: #fff;
-  font-family: 'Lato', sans-serif;
-  font-size: 24px;
-  font-weight: 300;
+  font-family: 'Roboto', Arial, sans-serif;
+  font-size: 22px;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
@@ -22,6 +34,10 @@
   background: rgba(0, 0, 0, 0.5);
   z-index: 9999;
   pointer-events: none; }
+
+.leaflet-gesture-handling-touch-warning:after, .leaflet-gesture-handling-scroll-warning:after {
+  -webkit-animation: leaflet-gestures-fadein 0.8s forwards;
+          animation: leaflet-gestures-fadein 0.8s forwards; }
 
 .leaflet-gesture-handling-touch-warning:after {
   content: 'Use two fingers to move the map'; }
