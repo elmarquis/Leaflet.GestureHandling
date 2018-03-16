@@ -29,5 +29,5 @@
 .leaflet-gesture-handling-scroll-warning:after {
   content: 'Use Ctrl + scroll to zoom the map'; }
 
-.mac .leaflet-gesture-handling-scroll-warning:after {
+.leaflet-gesture-handling-scroll-warning.mac:after {
   content: 'Use ⌘ + scroll to zoom the map'; }

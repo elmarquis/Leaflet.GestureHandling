@@ -30,17 +30,43 @@
   </head>
 
   <body>
-	<div id="map"></div>
+    <h1>Leaflet Gesture Handling</h1>
+    <p>sadasd</p>
+    <div id="map"></div>
+    <ul>
+        <li>a</li>
+        <li>a</li>
+        <li>a</li>
+        <li>a</li>
+        <li>a</li>
+        <li>a</li>
+        <li>a</li>
+        <li>a</li>
+        <li>a</li>
+        <li>a</li>
+        <li>a</li>
+        <li>a</li>
+        <li>a</li>
+        <li>a</li>
+        <li>a</li>
+        <li>a</li>
+        <li>a</li>
+        <li>a</li>
+        <li>a</li>
+        <li>a</li>
+        <li>a</li>
+        <li>a</li>
+    </ul>
   </body>
 
   <script>
       var map = L.map("map", {
         center: [-25.2702, 134.2798],
         zoom: 3,
-        dragging: false,
-        tap: false,
-        scrollWheelZoom: false,
-        gestureCooperative: true
+        // dragging: false,
+        // tap: false,
+        // scrollWheelZoom: false,
+        gestureHandling: true
     });
 
     var OpenStreetMap_Mapnik = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {

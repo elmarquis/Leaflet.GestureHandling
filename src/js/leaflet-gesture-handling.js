@@ -1,11 +1,10 @@
-/*!
- * Gesture-handling plugin for LeafletJS.
- * @author Andrew Marquis
- */
-/* global L */
 L.GestureHandler = L.Handler.extend({
 
 	addHooks: function () {
+
+        this._disableInteractions();
+        this._checkIfMacAddClass();
+
 		L.DomEvent.on(this._map._container, 'click', this._handleTouch, this);
 		L.DomEvent.on(this._map._container, 'touchstart', this._handleTouch, this);
 		L.DomEvent.on(this._map._container, 'touchend', this._handleTouch, this);
@@ -14,12 +13,42 @@ L.GestureHandler = L.Handler.extend({
 	},
 
 	removeHooks: function () {
+
+        this._enableInteractions();
+        this._removeMacClass();
+
 		L.DomEvent.off(this._map._container, 'click', this._handleTouch, this);
 		L.DomEvent.off(this._map._container, 'touchstart', this._handleTouch, this);
 		L.DomEvent.off(this._map._container, 'touchend', this._handleTouch, this);
 		L.DomEvent.off(this._map._container, 'touchmove', this._handleTouch, this);
 		L.DomEvent.off(this._map._container, 'mousewheel', this._handleScroll, this);
-	},
+    },
+    
+    _disableInteractions: function() {
+        this._map.dragging.disable();
+        this._map.scrollWheelZoom.disable();
+        if (this._map.tap) {
+            this._map.tap.disable();
+        }
+    },
+
+    _enableInteractions: function() {
+        this._map.dragging.enable();
+        this._map.scrollWheelZoom.enable();
+        if (this._map.tap) {
+            this._map.tap.enable();
+        }
+    },
+
+    _checkIfMacAddClass: function() {
+        if (navigator.platform.toUpperCase().indexOf('MAC') >= 0) {
+            this._map._container.classList.add('mac');
+        }
+    },
+
+    _removeMacClass: function() {
+        this._map._container.classList.remove('mac');
+    },
 
 	_handleTouch: function (e) {
 		
@@ -67,10 +96,4 @@ L.GestureHandler = L.Handler.extend({
 
 });
 
-L.Map.addInitHook('addHandler', 'gestureCooperative', L.GestureHandler);
-
-document.addEventListener('DOMContentLoaded', function () {
-	if (navigator.platform.toUpperCase().indexOf('MAC') >= 0) {
-		document.body.classList.add('mac');
-	}
-}, false);
+L.Map.addInitHook('addHandler', 'gestureHandling', L.GestureHandler);
