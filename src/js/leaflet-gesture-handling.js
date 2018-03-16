@@ -52,7 +52,7 @@ L.GestureHandler = L.Handler.extend({
 
 	_handleTouch: function (e) {
 		
-		//Disregard touch events on the minimap
+		//Disregard touch events on the minimap if present
 		if (e.target.classList.contains('leaflet-control-minimap') || e.target.classList.contains('leaflet-interactive')) {
 			return;
 		}
