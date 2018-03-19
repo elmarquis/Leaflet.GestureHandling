@@ -3,10 +3,13 @@
 Leaflet.GestureHandling prevents users from getting trapped on the map when scrolling a long page. 
 
 **On Desktop**
+![alt text](https://elmarquis.github.io/Leaflet.GestureHandling/examples/images/desktop.png "Desktop")
+Reference-style: 
 - The map ignores the mouse scroll wheel.
 - The user is prompted to use ctrl+scroll to zoom the map. 
 
-**On Mobile**
+**On Mobile / Touch devices**
+![alt text](https://elmarquis.github.io/Leaflet.GestureHandling/examples/images/mobile.png "Desktop")
 - The map ignores single fingered dragging. 
 - The user is prompted to use two fingers to pan the map. 
 
@@ -15,15 +18,8 @@ It brings the basic functionality of [Google Maps Gesture Handling](https://deve
 ## Demo
 [View demo](https://elmarquis.github.io/Leaflet.GestureHandling/examples/)
 
-
 ## Install
 The latest leaflet-gesture-handling can be downloaded from the dist folder. 
-
-Or install from npm: 
-
-```
-npm install --save leaflet-gesture-handling
-```
 
 ## Usage
 Include the css and js file after leaflet.js. 
