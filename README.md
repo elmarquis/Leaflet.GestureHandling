@@ -1,6 +1,8 @@
 # Leaflet.GestureHandling
 
-Leaflet.GestureHandling prevents users from getting trapped on the map when scrolling a long page. 
+Prevents users from getting trapped on the map when scrolling a long page. 
+
+Brings the basic functionality of [Google Maps Gesture Handling](https://developers.google.com/maps/documentation/javascript/examples/interaction-cooperative) into Leaflet.
 
 **On Desktop**
 
@@ -11,12 +13,11 @@ Leaflet.GestureHandling prevents users from getting trapped on the map when scro
 
 **On Mobile / Touch devices**
 
-![alt text](https://elmarquis.github.io/Leaflet.GestureHandling/examples/images/mobile.png "Desktop")
+![alt text](https://elmarquis.github.io/Leaflet.GestureHandling/examples/images/mobile.png "Mobile")
 
 - The map ignores single fingered dragging. 
 - The user is prompted to use two fingers to pan the map. 
 
-It brings the basic functionality of [Google Maps Gesture Handling](https://developers.google.com/maps/documentation/javascript/examples/interaction-cooperative) into Leaflet.
 
 ## Demo
 [View demo](https://elmarquis.github.io/Leaflet.GestureHandling/examples/)
