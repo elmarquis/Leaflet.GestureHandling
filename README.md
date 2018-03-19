@@ -1,8 +1,9 @@
 # Leaflet.GestureHandling
 
-Prevents users from getting trapped on the map when scrolling a long page. 
 
 Brings the basic functionality of [Google Maps Gesture Handling](https://developers.google.com/maps/documentation/javascript/examples/interaction-cooperative) into Leaflet.
+
+Prevents users from getting trapped on the map when scrolling a long page. 
 
 **On Desktop**
 
