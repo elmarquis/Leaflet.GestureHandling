@@ -1,14 +1,15 @@
+
 L.GestureHandler = L.Handler.extend({
 
 	addHooks: function () {
 
         this._disableInteractions();
-        this._checkIfMacAddClass();
-
-		L.DomEvent.on(this._map._container, 'click', this._handleTouch, this);
-		L.DomEvent.on(this._map._container, 'touchstart', this._handleTouch, this);
-		L.DomEvent.on(this._map._container, 'touchend', this._handleTouch, this);
-		L.DomEvent.on(this._map._container, 'touchmove', this._handleTouch, this);
+		this._checkIfMacAddClass();
+		
+		//Uses native event listeners instead of L.DomEvent due to issues with Android touch events 
+		//turning into pointer events
+		this._map._container.addEventListener("touchstart", this._handleTouch);
+		this._map._container.addEventListener("touchend", this._handleTouch);
 		L.DomEvent.on(this._map._container, 'mousewheel', this._handleScroll, this);
 	},
 
@@ -17,10 +18,8 @@ L.GestureHandler = L.Handler.extend({
         this._enableInteractions();
         this._removeMacClass();
 
-		L.DomEvent.off(this._map._container, 'click', this._handleTouch, this);
 		L.DomEvent.off(this._map._container, 'touchstart', this._handleTouch, this);
 		L.DomEvent.off(this._map._container, 'touchend', this._handleTouch, this);
-		L.DomEvent.off(this._map._container, 'touchmove', this._handleTouch, this);
 		L.DomEvent.off(this._map._container, 'mousewheel', this._handleScroll, this);
     },
     
@@ -29,7 +28,7 @@ L.GestureHandler = L.Handler.extend({
         this._map.scrollWheelZoom.disable();
         if (this._map.tap) {
             this._map.tap.disable();
-        }
+		}
     },
 
     _enableInteractions: function() {
@@ -51,22 +50,16 @@ L.GestureHandler = L.Handler.extend({
     },
 
 	_handleTouch: function (e) {
-		
+
 		//Disregard touch events on the minimap if present
 		if (e.target.classList.contains('leaflet-control-minimap') || e.target.classList.contains('leaflet-interactive')) {
 			return;
 		}
 
-		if (e.type === 'pointerdown' || e.type === 'pointerup') {
-			this._map.dragging.enable();
-			return;
-		}
-		if (e.type === 'touchmove' && e.touches.length === 1) {
-			this._map._container.classList.add('leaflet-gesture-handling-touch-warning');
-			this._map.dragging.disable();
+		if ( (e.type === 'touchmove' || e.type === 'touchstart') && e.touches.length === 1) {
+			e.currentTarget.classList.add('leaflet-gesture-handling-touch-warning');
 		} else {
-			this._map._container.classList.remove('leaflet-gesture-handling-touch-warning');
-			this._map.dragging.enable();
+			e.currentTarget.classList.remove('leaflet-gesture-handling-touch-warning');
 		}
 	},
 
@@ -97,3 +90,4 @@ L.GestureHandler = L.Handler.extend({
 });
 
 L.Map.addInitHook('addHandler', 'gestureHandling', L.GestureHandler);
+
