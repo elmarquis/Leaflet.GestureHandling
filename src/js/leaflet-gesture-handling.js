@@ -10,6 +10,7 @@ L.GestureHandler = L.Handler.extend({
 		//turning into pointer events
 		this._map._container.addEventListener("touchstart", this._handleTouch);
 		this._map._container.addEventListener("touchend", this._handleTouch);
+		L.DomEvent.on(this._map._container, 'click', this._handleTouch, this);
 		L.DomEvent.on(this._map._container, 'mousewheel', this._handleScroll, this);
 	},
 
@@ -58,8 +59,10 @@ L.GestureHandler = L.Handler.extend({
 
 		if ( (e.type === 'touchmove' || e.type === 'touchstart') && e.touches.length === 1) {
 			e.currentTarget.classList.add('leaflet-gesture-handling-touch-warning');
+			this._map.dragging.disable();
 		} else {
 			e.currentTarget.classList.remove('leaflet-gesture-handling-touch-warning');
+			this._map.dragging.enable();
 		}
 	},
 
