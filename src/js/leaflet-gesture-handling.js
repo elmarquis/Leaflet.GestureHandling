@@ -19,8 +19,9 @@ L.GestureHandler = L.Handler.extend({
         this._enableInteractions();
         this._removeMacClass();
 
-		L.DomEvent.off(this._map._container, 'touchstart', this._handleTouch, this);
-		L.DomEvent.off(this._map._container, 'touchend', this._handleTouch, this);
+		this._map._container.removeEventListener("touchstart", this._handleTouch);
+		this._map._container.removeEventListener("touchend", this._handleTouch);
+		L.DomEvent.off(this._map._container, 'click', this._handleTouch, this);
 		L.DomEvent.off(this._map._container, 'mousewheel', this._handleScroll, this);
     },
     
