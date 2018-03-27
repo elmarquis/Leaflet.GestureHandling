@@ -8,7 +8,8 @@ var gulp = require('gulp'),
     rename = require('gulp-rename');
 
 gulp.task('js', function(){
-    return gulp.src('src/js/*.js')
+    return gulp.src(['src/js/language-content.js', 'src/js/leaflet-gesture-handling.js'])
+    .pipe(concat('leaflet-gesture-handling.js'))
     .pipe(gulp.dest('dist/'))
     .pipe(uglify())
     .pipe(rename({ extname: '.min.js' }))

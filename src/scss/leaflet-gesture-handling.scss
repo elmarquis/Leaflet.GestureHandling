@@ -37,17 +37,12 @@
 
 .leaflet-gesture-handling-touch-warning {
     &:after {
-        content: 'Use two fingers to move the map';
+        content: attr(data-gesture-handling-touch-content);
     }
 }
 
 .leaflet-gesture-handling-scroll-warning {
     &:after {
-        content: 'Use Ctrl + scroll to zoom the map';
-    }
-    &.mac {
-        &:after {
-            content: 'Use ⌘ + scroll to zoom the map';
-        }
+        content: attr(data-gesture-handling-scroll-content);
     }
 }

@@ -1,10 +1,25 @@
+L.GestureHander_LanguageContent = {
+
+    "en": {
+        "touch": "Use two fingers to move the map",
+        "scroll": "Use Ctrl + scroll to zoom the map",
+        "scrollMac": "Use ⌘ + scroll to zoom the map"
+    }, 
+
+    "fr": {
+        "touch": "Utilisez deux doigts pour déplacer la carte",
+        "scroll": "Vous pouvez zoomer sur la carte à l'aide de Ctrl+Molette de défilement",
+        "scrollMac": "Vous pouvez zoomer sur la carte à l'aide de ⌘+Molette de défilement"
+    }
+
+};
 
 L.GestureHandler = L.Handler.extend({
 
 	addHooks: function () {
 
+		this._setLanguageContent();
         this._disableInteractions();
-		this._checkIfMacAddClass();
 		
 		//Uses native event listeners instead of L.DomEvent due to issues with Android touch events 
 		//turning into pointer events
@@ -40,12 +55,62 @@ L.GestureHandler = L.Handler.extend({
             this._map.tap.enable();
         }
     },
+	
+	_setLanguageContent: function() {
 
-    _checkIfMacAddClass: function() {
-        if (navigator.platform.toUpperCase().indexOf('MAC') >= 0) {
-            this._map._container.classList.add('mac');
-        }
-    },
+		var languageContent;
+		
+		//Check if they're on a mac for display of command instead of ctrl
+		var mac = false;
+		if (navigator.platform.toUpperCase().indexOf('MAC') >= 0) {
+			mac = true;
+		}
+
+		//Determine their language e.g fr or en-US
+		var lang = this._getUserLanguage();
+
+		//If we couldn't find it default to en
+		if (!lang) {
+			lang = "en";
+		}
+
+		//Lookup the appropriate language content
+		if (L.GestureHander_LanguageContent[lang]) {
+			languageContent = L.GestureHander_LanguageContent[lang];
+		} 
+
+		//If no result, try searching by the first part only. e.g en-US just use en.
+		if(!languageContent && lang.indexOf("-") !== -1) {
+			lang = lang.split("-")[0];
+			languageContent = L.GestureHander_LanguageContent[lang];
+		}
+
+		if(!languageContent) {
+			// If still nothing, default to English
+			console.log("NO lang found for", lang);
+			lang = "en";
+			languageContent = L.GestureHander_LanguageContent[lang];
+		}
+
+		var scrollContent = languageContent.scroll;
+		if(mac) {
+			scrollContent = languageContent.scrollMac;
+		}
+
+		this._map._container.setAttribute('data-gesture-handling-touch-content', languageContent.touch);
+		this._map._container.setAttribute('data-gesture-handling-scroll-content', scrollContent);
+
+
+
+
+	},
+
+	_getUserLanguage: function() {
+		var	lang = navigator.languages
+				? navigator.languages[0]
+				: (navigator.language || navigator.userLanguage)
+		return lang;
+	},
 
     _removeMacClass: function() {
         this._map._container.classList.remove('mac');
