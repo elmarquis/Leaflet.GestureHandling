@@ -72,10 +72,13 @@ L.GestureHandler = L.Handler.extend({
 
 		if(!languageContent) {
 			// If still nothing, default to English
-			console.log("NO lang found for", lang);
+			// console.log("No lang found for", lang);
 			lang = "en";
 			languageContent = L.GestureHander_LanguageContent[lang];
 		}
+
+		//TEST
+		// languageContent = L.GestureHander_LanguageContent["vi"];
 
 		var scrollContent = languageContent.scroll;
 		if(mac) {
