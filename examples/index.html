@@ -88,7 +88,12 @@
       var map = L.map("map", {
         center: [-25.2702, 134.2798],
         zoom: 3,
-        gestureHandling: true
+        gestureHandling: true,
+        gestureHandlingText: {
+            touch: "Hey bro, use two fingers to move the map",
+            scroll: "Hey bro, use ctrl + scroll to zoom the map",
+            scrollMac: "Hey bro, use \u2318 + scroll to zoom the map"
+        }
     });
 
     var OpenStreetMap_Mapnik = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {

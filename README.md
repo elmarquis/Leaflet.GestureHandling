@@ -43,6 +43,23 @@ Set **gestureHandling: true** in your map initialization script.
 });
 ```
 
+## Multi Language and Custom Text
+The plugin will auto detect a users language from the browser setting and show the appropriate translation. 
+However if you wish to override this, you can set your own text using the **gestureHandlingText** option. You must specify text for touch, scroll and scrollMac.
+
+```
+ var map = L.map("map", {
+    center: [-25.2702, 134.2798],
+    zoom: 3,
+    gestureHandling: true,
+    gestureHandlingText: {
+        touch: "Hey bro, use two fingers to move the map",
+        scroll: "Hey bro, use ctrl + scroll to zoom the map",
+        scrollMac: "Hey bro, use \u2318 + scroll to zoom the map"
+    }
+});
+```
+
 ## Useful info
 GestureHandling disables the following map attributes. 
 - dragging

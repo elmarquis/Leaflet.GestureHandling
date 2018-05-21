@@ -1,3 +1,6 @@
+L.Map.mergeOptions({
+	gestureHandlingText: {}
+});
 
 L.GestureHandler = L.Handler.extend({
 
@@ -45,40 +48,48 @@ L.GestureHandler = L.Handler.extend({
 
 		var languageContent;
 		
+		//If user has supplied custom language, use that
+		if (this._map.options.gestureHandlingText && this._map.options.gestureHandlingText.touch) {
+			languageContent = this._map.options.gestureHandlingText;
+		} else {
+			//Otherwise auto set it from the language files
+
+			//Determine their language e.g fr or en-US
+			var lang = this._getUserLanguage();
+
+			//If we couldn't find it default to en
+			if (!lang) {
+				lang = "en";
+			}
+
+			//Lookup the appropriate language content
+			if (L.GestureHander_LanguageContent[lang]) {
+				languageContent = L.GestureHander_LanguageContent[lang];
+			} 
+
+			//If no result, try searching by the first part only. e.g en-US just use en.
+			if(!languageContent && lang.indexOf("-") !== -1) {
+				lang = lang.split("-")[0];
+				languageContent = L.GestureHander_LanguageContent[lang];
+			}
+
+			if(!languageContent) {
+				// If still nothing, default to English
+				// console.log("No lang found for", lang);
+				lang = "en";
+				languageContent = L.GestureHander_LanguageContent[lang];
+			}
+
+		}
+
+		//TEST
+		// languageContent = L.GestureHander_LanguageContent["vi"];
+
 		//Check if they're on a mac for display of command instead of ctrl
 		var mac = false;
 		if (navigator.platform.toUpperCase().indexOf('MAC') >= 0) {
 			mac = true;
 		}
-
-		//Determine their language e.g fr or en-US
-		var lang = this._getUserLanguage();
-
-		//If we couldn't find it default to en
-		if (!lang) {
-			lang = "en";
-		}
-
-		//Lookup the appropriate language content
-		if (L.GestureHander_LanguageContent[lang]) {
-			languageContent = L.GestureHander_LanguageContent[lang];
-		} 
-
-		//If no result, try searching by the first part only. e.g en-US just use en.
-		if(!languageContent && lang.indexOf("-") !== -1) {
-			lang = lang.split("-")[0];
-			languageContent = L.GestureHander_LanguageContent[lang];
-		}
-
-		if(!languageContent) {
-			// If still nothing, default to English
-			// console.log("No lang found for", lang);
-			lang = "en";
-			languageContent = L.GestureHander_LanguageContent[lang];
-		}
-
-		//TEST
-		// languageContent = L.GestureHander_LanguageContent["vi"];
 
 		var scrollContent = languageContent.scroll;
 		if(mac) {
