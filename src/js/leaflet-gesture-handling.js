@@ -135,6 +135,7 @@ L.GestureHandler = L.Handler.extend({
 
 	_handleScroll: function (e) {
 		if (e.metaKey || e.ctrlKey) {
+			e.preventDefault();
 			this._map._container.classList.remove('leaflet-gesture-handling-scroll-warning');
 			this._map.scrollWheelZoom.enable();
 		} else {
