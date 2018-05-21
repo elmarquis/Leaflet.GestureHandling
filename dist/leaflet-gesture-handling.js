@@ -319,6 +319,11 @@ L.GestureHander_LanguageContent = {
         "scrollMac": "\u6309 \u2318 \u52a0\u4e0a\u6efe\u52d5\u6372\u8ef8\u53ef\u4ee5\u7e2e\u653e\u5730\u5716"
     }
 };
+/*
+* * Leaflet Gesture Handling **
+* * Version 1.1
+*/
+
 L.Map.mergeOptions({
 	gestureHandlingText: {}
 });

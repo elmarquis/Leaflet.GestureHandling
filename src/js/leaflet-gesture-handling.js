@@ -1,3 +1,8 @@
+/*
+* * Leaflet Gesture Handling **
+* * Version 1.1
+*/
+
 L.Map.mergeOptions({
 	gestureHandlingText: {}
 });
