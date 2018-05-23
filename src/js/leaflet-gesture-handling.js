@@ -161,11 +161,11 @@ L.GestureHandler = L.Handler.extend({
 	},
 
 	_handleMouseOver: function (e) {
-		this._enableInteractions();
+		// this._enableInteractions();
 	},
 
 	_handleMouseOut: function (e) {
-		this._disableInteractions();
+		// this._disableInteractions();
 	}
 
 });
