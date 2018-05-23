@@ -20,17 +20,20 @@ L.GestureHandler = L.Handler.extend({
 		this._map._container.addEventListener("touchend", this._handleTouch);
 		L.DomEvent.on(this._map._container, 'click', this._handleTouch, this);
 		L.DomEvent.on(this._map._container, 'mousewheel', this._handleScroll, this);
+		L.DomEvent.on(this._map._container, 'mouseover', this._handleMouseOver, this);
+		L.DomEvent.on(this._map._container, 'mouseout', this._handleMouseOut, this);
 	},
 
 	removeHooks: function () {
 
         this._enableInteractions();
-        this._removeMacClass();
 
 		this._map._container.removeEventListener("touchstart", this._handleTouch);
 		this._map._container.removeEventListener("touchend", this._handleTouch);
 		L.DomEvent.off(this._map._container, 'click', this._handleTouch, this);
 		L.DomEvent.off(this._map._container, 'mousewheel', this._handleScroll, this);
+		L.DomEvent.off(this._map._container, 'mouseover', this._handleMouseOver, this);
+		L.DomEvent.off(this._map._container, 'mouseout', this._handleMouseOut, this);
     },
     
     _disableInteractions: function() {
@@ -116,10 +119,6 @@ L.GestureHandler = L.Handler.extend({
 		return lang;
 	},
 
-    _removeMacClass: function() {
-        this._map._container.classList.remove('mac');
-    },
-
 	_handleTouch: function (e) {
 
 		//Disregard touch events on the minimap if present
@@ -159,6 +158,14 @@ L.GestureHandler = L.Handler.extend({
 
 			}, 1000);
 		}
+	},
+
+	_handleMouseOver: function (e) {
+		this._enableInteractions();
+	},
+
+	_handleMouseOut: function (e) {
+		this._disableInteractions();
 	}
 
 });
