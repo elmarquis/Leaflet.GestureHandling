@@ -5,10 +5,12 @@ var gulp = require('gulp'),
     uglify = require('gulp-uglify')
     prefix = require('gulp-autoprefixer')
     sass = require('gulp-sass'),
-    rename = require('gulp-rename');
+    rename = require('gulp-rename'),
+    babel = require("gulp-babel");
 
 gulp.task('js', function(){
     return gulp.src(['src/js/language-content.js', 'src/js/leaflet-gesture-handling.js'])
+    .pipe(babel())
     .pipe(concat('leaflet-gesture-handling.js'))
     .pipe(gulp.dest('dist/'))
     .pipe(uglify())

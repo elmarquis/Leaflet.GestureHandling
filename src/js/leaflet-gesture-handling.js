@@ -11,6 +11,8 @@ L.GestureHandler = L.Handler.extend({
 
 	addHooks: function () {
 
+		this._handleTouch = this._handleTouch.bind(this);
+
 		this._setLanguageContent();
         this._disableInteractions();
 		
@@ -18,7 +20,8 @@ L.GestureHandler = L.Handler.extend({
 		//turning into pointer events
 		this._map._container.addEventListener("touchstart", this._handleTouch);
 		this._map._container.addEventListener("touchend", this._handleTouch);
-		L.DomEvent.on(this._map._container, 'click', this._handleTouch, this);
+		this._map._container.addEventListener("click", this._handleTouch);
+
 		L.DomEvent.on(this._map._container, 'mousewheel', this._handleScroll, this);
 		L.DomEvent.on(this._map._container, 'mouseover', this._handleMouseOver, this);
 		L.DomEvent.on(this._map._container, 'mouseout', this._handleMouseOut, this);
@@ -49,7 +52,7 @@ L.GestureHandler = L.Handler.extend({
         this._map.scrollWheelZoom.enable();
         if (this._map.tap) {
             this._map.tap.enable();
-        }
+		}
     },
 	
 	_setLanguageContent: function() {
@@ -107,9 +110,6 @@ L.GestureHandler = L.Handler.extend({
 		this._map._container.setAttribute('data-gesture-handling-touch-content', languageContent.touch);
 		this._map._container.setAttribute('data-gesture-handling-scroll-content', scrollContent);
 
-
-
-
 	},
 
 	_getUserLanguage: function() {
@@ -126,13 +126,14 @@ L.GestureHandler = L.Handler.extend({
 			return;
 		}
 
-		if ( (e.type === 'touchmove' || e.type === 'touchstart') && e.touches.length === 1) {
-			e.currentTarget.classList.add('leaflet-gesture-handling-touch-warning');
-			this._map.dragging.disable();
+		if ( (e.type === 'touchmove' || e.type === 'touchstart' ) && e.touches.length === 1) {
+			e.target.classList.add('leaflet-gesture-handling-touch-warning');
+			this._disableInteractions();
 		} else {
-			e.currentTarget.classList.remove('leaflet-gesture-handling-touch-warning');
-			this._map.dragging.enable();
+			e.target.classList.remove('leaflet-gesture-handling-touch-warning');
+			this._enableInteractions();
 		}
+		
 	},
 
 	_isScrolling: false,
@@ -160,12 +161,13 @@ L.GestureHandler = L.Handler.extend({
 		}
 	},
 
+
 	_handleMouseOver: function (e) {
-		// this._enableInteractions();
+		this._enableInteractions();
 	},
 
 	_handleMouseOut: function (e) {
-		// this._disableInteractions();
+		this._disableInteractions();
 	}
 
 });

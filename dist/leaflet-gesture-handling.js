@@ -101,7 +101,7 @@ L.GestureHander_LanguageContent = {
         "touch": "Utilisez deux\u00a0doigts pour d\u00e9placer la carte",
         "scroll": "Vous pouvez zoomer sur la carte \u00e0 l'aide de CTRL+Molette de d\u00e9filement",
         "scrollMac": "Vous pouvez zoomer sur la carte \u00e0 l'aide de \u2318+Molette de d\u00e9filement"
-    },	
+    },
     //Galician	
     "gl": {
         "touch": "Utiliza dous dedos para mover o mapa",
@@ -332,14 +332,17 @@ L.GestureHandler = L.Handler.extend({
 
 	addHooks: function () {
 
+		this._handleTouch = this._handleTouch.bind(this);
+
 		this._setLanguageContent();
-        this._disableInteractions();
-		
+		this._disableInteractions();
+
 		//Uses native event listeners instead of L.DomEvent due to issues with Android touch events 
 		//turning into pointer events
 		this._map._container.addEventListener("touchstart", this._handleTouch);
 		this._map._container.addEventListener("touchend", this._handleTouch);
-		L.DomEvent.on(this._map._container, 'click', this._handleTouch, this);
+		this._map._container.addEventListener("click", this._handleTouch);
+
 		L.DomEvent.on(this._map._container, 'mousewheel', this._handleScroll, this);
 		L.DomEvent.on(this._map._container, 'mouseover', this._handleMouseOver, this);
 		L.DomEvent.on(this._map._container, 'mouseout', this._handleMouseOut, this);
@@ -347,7 +350,7 @@ L.GestureHandler = L.Handler.extend({
 
 	removeHooks: function () {
 
-        this._enableInteractions();
+		this._enableInteractions();
 
 		this._map._container.removeEventListener("touchstart", this._handleTouch);
 		this._map._container.removeEventListener("touchend", this._handleTouch);
@@ -355,28 +358,28 @@ L.GestureHandler = L.Handler.extend({
 		L.DomEvent.off(this._map._container, 'mousewheel', this._handleScroll, this);
 		L.DomEvent.off(this._map._container, 'mouseover', this._handleMouseOver, this);
 		L.DomEvent.off(this._map._container, 'mouseout', this._handleMouseOut, this);
-    },
-    
-    _disableInteractions: function() {
-        this._map.dragging.disable();
-        this._map.scrollWheelZoom.disable();
-        if (this._map.tap) {
-            this._map.tap.disable();
-		}
-    },
+	},
 
-    _enableInteractions: function() {
-        this._map.dragging.enable();
-        this._map.scrollWheelZoom.enable();
-        if (this._map.tap) {
-            this._map.tap.enable();
-        }
-    },
-	
-	_setLanguageContent: function() {
+	_disableInteractions: function () {
+		this._map.dragging.disable();
+		this._map.scrollWheelZoom.disable();
+		if (this._map.tap) {
+			this._map.tap.disable();
+		}
+	},
+
+	_enableInteractions: function () {
+		this._map.dragging.enable();
+		this._map.scrollWheelZoom.enable();
+		if (this._map.tap) {
+			this._map.tap.enable();
+		}
+	},
+
+	_setLanguageContent: function () {
 
 		var languageContent;
-		
+
 		//If user has supplied custom language, use that
 		if (this._map.options.gestureHandlingText && this._map.options.gestureHandlingText.touch) {
 			languageContent = this._map.options.gestureHandlingText;
@@ -394,21 +397,20 @@ L.GestureHandler = L.Handler.extend({
 			//Lookup the appropriate language content
 			if (L.GestureHander_LanguageContent[lang]) {
 				languageContent = L.GestureHander_LanguageContent[lang];
-			} 
+			}
 
 			//If no result, try searching by the first part only. e.g en-US just use en.
-			if(!languageContent && lang.indexOf("-") !== -1) {
+			if (!languageContent && lang.indexOf("-") !== -1) {
 				lang = lang.split("-")[0];
 				languageContent = L.GestureHander_LanguageContent[lang];
 			}
 
-			if(!languageContent) {
+			if (!languageContent) {
 				// If still nothing, default to English
 				// console.log("No lang found for", lang);
 				lang = "en";
 				languageContent = L.GestureHander_LanguageContent[lang];
 			}
-
 		}
 
 		//TEST
@@ -421,22 +423,16 @@ L.GestureHandler = L.Handler.extend({
 		}
 
 		var scrollContent = languageContent.scroll;
-		if(mac) {
+		if (mac) {
 			scrollContent = languageContent.scrollMac;
 		}
 
 		this._map._container.setAttribute('data-gesture-handling-touch-content', languageContent.touch);
 		this._map._container.setAttribute('data-gesture-handling-scroll-content', scrollContent);
-
-
-
-
 	},
 
-	_getUserLanguage: function() {
-		var	lang = navigator.languages
-				? navigator.languages[0]
-				: (navigator.language || navigator.userLanguage)
+	_getUserLanguage: function () {
+		var lang = navigator.languages ? navigator.languages[0] : navigator.language || navigator.userLanguage;
 		return lang;
 	},
 
@@ -447,12 +443,12 @@ L.GestureHandler = L.Handler.extend({
 			return;
 		}
 
-		if ( (e.type === 'touchmove' || e.type === 'touchstart') && e.touches.length === 1) {
-			e.currentTarget.classList.add('leaflet-gesture-handling-touch-warning');
-			this._map.dragging.disable();
+		if ((e.type === 'touchmove' || e.type === 'touchstart') && e.touches.length === 1) {
+			e.target.classList.add('leaflet-gesture-handling-touch-warning');
+			this._disableInteractions();
 		} else {
-			e.currentTarget.classList.remove('leaflet-gesture-handling-touch-warning');
-			this._map.dragging.enable();
+			e.target.classList.remove('leaflet-gesture-handling-touch-warning');
+			this._enableInteractions();
 		}
 	},
 
@@ -476,20 +472,18 @@ L.GestureHandler = L.Handler.extend({
 				for (var i = 0; i < warnings.length; i++) {
 					warnings[i].classList.remove('leaflet-gesture-handling-scroll-warning');
 				}
-
 			}, 1000);
 		}
 	},
 
 	_handleMouseOver: function (e) {
-		// this._enableInteractions();
+		this._enableInteractions();
 	},
 
 	_handleMouseOut: function (e) {
-		// this._disableInteractions();
+		this._disableInteractions();
 	}
 
 });
 
 L.Map.addInitHook('addHandler', 'gestureHandling', L.GestureHandler);
-
