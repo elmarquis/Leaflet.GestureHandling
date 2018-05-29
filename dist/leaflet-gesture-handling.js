@@ -438,17 +438,31 @@ L.GestureHandler = L.Handler.extend({
 	},
 
 	_handleTouch: function (e) {
+
 		//Disregard touch events on the minimap if present
-		if (e.target.classList.contains('leaflet-control-minimap') || e.target.classList.contains('leaflet-interactive')) {
+		var ignoreList = ['leaflet-control-minimap', 'leaflet-interactive', 'leaflet-popup-content', 'leaflet-popup-close-button'];
+
+		var ignoreElement = false;
+		for (var i = 0; i < ignoreList.length; i++) {
+			if (e.target.classList.contains(ignoreList[i])) {
+				ignoreElement = true;
+			}
+		}
+
+		if (ignoreElement) {
+			e.target.classList.remove('leaflet-gesture-handling-touch-warning');
 			return;
 		}
+		// screenLog(e.type+' '+e.touches.length);
 
 		if ((e.type === 'touchmove' || e.type === 'touchstart') && e.touches.length === 1) {
 			e.currentTarget.classList.add('leaflet-gesture-handling-touch-warning');
 			this._disableInteractions();
 		} else {
 			e.target.classList.remove('leaflet-gesture-handling-touch-warning');
-			// this._enableInteractions();
+			if (e.touches.length === 2) {
+				// this._enableInteractions();
+			}
 		}
 	},
 
