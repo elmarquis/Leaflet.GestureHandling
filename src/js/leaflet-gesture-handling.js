@@ -33,7 +33,8 @@ L.GestureHandler = L.Handler.extend({
 
 		this._map._container.removeEventListener("touchstart", this._handleTouch);
 		this._map._container.removeEventListener("touchend", this._handleTouch);
-		L.DomEvent.off(this._map._container, 'click', this._handleTouch, this);
+		this._map._container.removeEventListener("click", this._handleTouch);
+
 		L.DomEvent.off(this._map._container, 'mousewheel', this._handleScroll, this);
 		L.DomEvent.off(this._map._container, 'mouseover', this._handleMouseOver, this);
 		L.DomEvent.off(this._map._container, 'mouseout', this._handleMouseOut, this);
@@ -120,18 +121,17 @@ L.GestureHandler = L.Handler.extend({
 	},
 
 	_handleTouch: function (e) {
-
 		//Disregard touch events on the minimap if present
 		if (e.target.classList.contains('leaflet-control-minimap') || e.target.classList.contains('leaflet-interactive')) {
 			return;
 		}
 
 		if ( (e.type === 'touchmove' || e.type === 'touchstart' ) && e.touches.length === 1) {
-			e.target.classList.add('leaflet-gesture-handling-touch-warning');
+			e.currentTarget.classList.add('leaflet-gesture-handling-touch-warning');
 			this._disableInteractions();
 		} else {
 			e.target.classList.remove('leaflet-gesture-handling-touch-warning');
-			this._enableInteractions();
+			// this._enableInteractions();
 		}
 		
 	},
@@ -173,4 +173,3 @@ L.GestureHandler = L.Handler.extend({
 });
 
 L.Map.addInitHook('addHandler', 'gestureHandling', L.GestureHandler);
-
