@@ -1,6 +1,6 @@
 /*
 * * Leaflet Gesture Handling **
-* * Version 1.1
+* * Version 1.1.2
 */
 
 L.Map.mergeOptions({
