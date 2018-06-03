@@ -321,7 +321,7 @@ L.GestureHander_LanguageContent = {
 };
 /*
 * * Leaflet Gesture Handling **
-* * Version 1.1
+* * Version 1.1.2
 */
 
 L.Map.mergeOptions({
@@ -460,9 +460,6 @@ L.GestureHandler = L.Handler.extend({
 			this._disableInteractions();
 		} else {
 			e.target.classList.remove('leaflet-gesture-handling-touch-warning');
-			if (e.touches.length === 2) {
-				// this._enableInteractions();
-			}
 		}
 	},
 
