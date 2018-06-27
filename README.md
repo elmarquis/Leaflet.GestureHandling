@@ -61,6 +61,23 @@ However if you wish to override this, you can set your own text using the **gest
 });
 ```
 
+## Configure the duration the text is shown
+You can configure the duration the text is shown by setting the **gestureHandlingTextDuration** option to the number of milliseconds you want to show the text
+```
+ var map = L.map("map", {
+    center: [-25.2702, 134.2798],
+    zoom: 3,
+    gestureHandling: true,
+    gestureHandlingText: {
+        touch: "Hey bro, use two fingers to move the map",
+        scroll: "Hey bro, use ctrl + scroll to zoom the map",
+        scrollMac: "Hey bro, use \u2318 + scroll to zoom the map"
+    },
+    gestureHandlingTextDuration: 5000
+});
+```
+
+
 ## Useful info
 GestureHandling disables the following map attributes. 
 - dragging
