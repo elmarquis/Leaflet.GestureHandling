@@ -5,7 +5,7 @@
 
 L.Map.mergeOptions({
 	gestureHandlingText: {},
-	gestureHandlingTextTimeout: 1000
+	gestureHandlingTextDuration: 1000
 });
 
 L.GestureHandler = L.Handler.extend({
@@ -173,7 +173,7 @@ L.GestureHandler = L.Handler.extend({
 				for (var i = 0; i < warnings.length; i++) {
 					warnings[i].classList.remove('leaflet-gesture-handling-scroll-warning');
 				}
-			}, this._map.options.gestureHandlingTextTimeout);
+			}, this._map.options.gestureHandlingTextDuration);
 		}
 	},
 
