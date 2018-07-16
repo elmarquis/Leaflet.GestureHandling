@@ -213,7 +213,9 @@ L.GestureHandler = L.Handler.extend({
 	},
 
 	_handleMouseOut: function (e) {
-		this._disableInteractions();
+		if (!draggingMap) {
+			this._disableInteractions();
+		}
 	}
 
 });
