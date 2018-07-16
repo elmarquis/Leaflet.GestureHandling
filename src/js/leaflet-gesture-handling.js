@@ -7,6 +7,8 @@ L.Map.mergeOptions({
 	gestureHandlingText: {}
 });
 
+var draggingMap = false;
+
 L.GestureHandler = L.Handler.extend({
 
 	addHooks: function () {
@@ -26,6 +28,11 @@ L.GestureHandler = L.Handler.extend({
 		L.DomEvent.on(this._map._container, 'mousewheel', this._handleScroll, this);
 		L.DomEvent.on(this._map, 'mouseover', this._handleMouseOver, this);
 		L.DomEvent.on(this._map, 'mouseout', this._handleMouseOut, this);
+		
+		// Listen to these events so will not disable dragging if the user moves the mouse out the boundary of the map container whilst actively dragging the map.
+		L.DomEvent.on(this._map, 'movestart', this._handleDragging, this);
+        L.DomEvent.on(this._map, 'move', this._handleDragging, this);
+        L.DomEvent.on(this._map, 'moveend', this._handleDragging, this);
 	},
 
 	removeHooks: function () {
@@ -40,7 +47,20 @@ L.GestureHandler = L.Handler.extend({
 		L.DomEvent.off(this._map._container, 'mousewheel', this._handleScroll, this);
 		L.DomEvent.off(this._map, 'mouseover', this._handleMouseOver, this);
 		L.DomEvent.off(this._map, 'mouseout', this._handleMouseOut, this);
+		
+		L.DomEvent.off(this._map, 'movestart', this._handleDragging, this);
+        L.DomEvent.off(this._map, 'move', this._handleDragging, this);
+        L.DomEvent.off(this._map, 'moveend', this._handleDragging, this);
     },
+	
+	_handleDragging: function (e) {
+         if (e.type == 'movestart' || e.type == 'move') {
+            draggingMap = true;
+         } else if (e.type == 'moveend') {
+            draggingMap = false;
+         }
+      },
+
     
     _disableInteractions: function() {
         this._map.dragging.disable();
