@@ -1,6 +1,6 @@
 /*
 * * Leaflet Gesture Handling **
-* * Version 1.1.2
+* * Version 1.1.2-mod
 */
 
 L.Map.mergeOptions({
@@ -23,8 +23,8 @@ L.GestureHandler = L.Handler.extend({
 		this._map._container.addEventListener("click", this._handleTouch);
 
 		L.DomEvent.on(this._map._container, 'mousewheel', this._handleScroll, this);
-		L.DomEvent.on(this._map._container, 'mouseover', this._handleMouseOver, this);
-		L.DomEvent.on(this._map._container, 'mouseout', this._handleMouseOut, this);
+		L.DomEvent.on(this._map, 'mouseover', this._handleMouseOver, this);
+		L.DomEvent.on(this._map, 'mouseout', this._handleMouseOut, this);
 	},
 
 	removeHooks: function () {
@@ -36,8 +36,8 @@ L.GestureHandler = L.Handler.extend({
 		this._map._container.removeEventListener("click", this._handleTouch);
 
 		L.DomEvent.off(this._map._container, 'mousewheel', this._handleScroll, this);
-		L.DomEvent.off(this._map._container, 'mouseover', this._handleMouseOver, this);
-		L.DomEvent.off(this._map._container, 'mouseout', this._handleMouseOut, this);
+		L.DomEvent.off(this._map, 'mouseover', this._handleMouseOver, this);
+		L.DomEvent.off(this._map, 'mouseout', this._handleMouseOut, this);
     },
     
     _disableInteractions: function() {
