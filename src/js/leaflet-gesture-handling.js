@@ -127,7 +127,10 @@ L.GestureHandler = L.Handler.extend({
 			'leaflet-control-minimap',
 			'leaflet-interactive',
 			'leaflet-popup-content',
-			'leaflet-popup-close-button'
+			'leaflet-popup-content-wrapper',
+			'leaflet-popup-close-button', 
+			'leaflet-control-zoom-in', 
+			'leaflet-control-zoom-out'
 		];
 
 		var ignoreElement = false;
