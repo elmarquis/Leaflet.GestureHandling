@@ -56,10 +56,10 @@ var map = L.map("map", {
 
 ### Use as a module
 
-If you are using a bundler such as Webpack or Parcel, you can load the library as a module. First install the module with NPM (n.b. change this to `npm install leaflet-gesture-handling` when the package is published on NPM).
+If you are using a bundler such as Webpack or Parcel, you can load the library as a module. First install the module with `npm install leaflet-gesture-handling`.
 
 ```sh
-npm install ascorbic/leaflet-gesture-handling
+npm install elmarquis/leaflet-gesture-handling
 ```
 
 Then include the module and CSS in your source:
