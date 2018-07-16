@@ -22,6 +22,7 @@ gulp.task("js", function() {
                 }
             )
         )
+        .pipe(gulp.dest("dist/"))
         .pipe(uglify())
         .pipe(rename({ extname: ".min.js" }))
         .pipe(sourcemaps.write(""))

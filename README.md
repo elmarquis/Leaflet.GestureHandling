@@ -1,6 +1,6 @@
 # Leaflet.GestureHandling
 
-Version 1.1.2
+Version 1.1.3
 
 Brings the basic functionality of [Google Maps Gesture Handling](https://developers.google.com/maps/documentation/javascript/examples/interaction-cooperative) into Leaflet.
 
@@ -37,7 +37,7 @@ Include the css and js file after leaflet.js.
 <script src="js/leaflet-gesture-handling.min.js"></script>
 ```
 
-Once this is published to NPM, you can load this directly from [UNPKG](https://unpkg.com):
+Or load this directly from [UNPKG](https://unpkg.com):
 
 ```html
 <link rel="stylesheet" href="//unpkg.com/leaflet-gesture-handling/dist/leaflet-gesture-handling.min.css" type="text/css">
