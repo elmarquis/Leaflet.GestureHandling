@@ -1,6 +1,6 @@
 # Leaflet.GestureHandling
 
-Version 1.1.3
+Version 1.1.4
 
 Brings the basic functionality of [Google Maps Gesture Handling](https://developers.google.com/maps/documentation/javascript/examples/interaction-cooperative) into Leaflet.
 
@@ -86,18 +86,40 @@ const map = L.map("map", {
 
 ## Multi Language and Custom Text
 
-The plugin will auto detect a users language from the browser setting and show the appropriate translation.
-However if you wish to override this, you can set your own text using the **gestureHandlingText** option. You must specify text for touch, scroll and scrollMac.
+The plugin will auto detect a users language from the browser setting and show the appropriate translation. 52 languages are supported without you needing to do anything. 
+
+However if you wish to override this, you can set your own text by supplying **gestureHandlingOptions** and a **text** option as shown below. You must specify text for touch, scroll and scrollMac.
 
 ```js
 var map = L.map("map", {
     center: [-25.2702, 134.2798],
     zoom: 3,
     gestureHandling: true,
-    gestureHandlingText: {
-        touch: "Hey bro, use two fingers to move the map",
-        scroll: "Hey bro, use ctrl + scroll to zoom the map",
-        scrollMac: "Hey bro, use \u2318 + scroll to zoom the map"
+    gestureHandlingOptions: {
+        text: {
+            touch: "Hey bro, use two fingers to move the map",
+            scroll: "Hey bro, use ctrl + scroll to zoom the map",
+            scrollMac: "Hey bro, use \u2318 + scroll to zoom the map"
+        }
+    }
+});
+```
+
+*Note: Earlier versions used a property called gestureHandlingText for this which still works. 
+
+## Other Options
+
+To pass in options use the property: **gestureHandlingOptions**.  
+
+- **duration** : (int) time in ms before the message should disappear. default: 1000 (1 sec)
+
+```js
+var map = L.map("map", {
+    center: [-25.2702, 134.2798],
+    zoom: 3,
+    gestureHandling: true,
+    gestureHandlingOptions: {
+        duration: 5000 //5 secs
     }
 });
 ```

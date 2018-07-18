@@ -1,16 +1,20 @@
 /*
 * * Leaflet Gesture Handling **
-* * Version 1.1.3
+* * Version 1.1.4
 */
 import LanguageContent from "./language-content";
 
 L.Map.mergeOptions({
-    gestureHandlingText: {}
+    gestureHandlingOptions: {
+        text:{},
+        duration: 1000
+    }
 });
 export var GestureHandling = L.Handler.extend({
     addHooks: function() {
         this._handleTouch = this._handleTouch.bind(this);
 
+        this._setupPluginOptions();
         this._setLanguageContent();
         this._disableInteractions();
 
@@ -86,14 +90,25 @@ export var GestureHandling = L.Handler.extend({
         }
     },
 
+    _setupPluginOptions: function() {
+
+        //For backwards compatibility, merge gestureHandlingText into the new options object
+        if (this._map.options.gestureHandlingText) {
+            this._map.options.gestureHandlingOptions.text = this._map.options.gestureHandlingText;
+        }
+    },
+
     _setLanguageContent: function() {
         var languageContent;
         //If user has supplied custom language, use that
         if (
-            this._map.options.gestureHandlingText &&
-            this._map.options.gestureHandlingText.touch
+            this._map.options.gestureHandlingOptions &&
+            this._map.options.gestureHandlingOptions.text &&
+            this._map.options.gestureHandlingOptions.text.touch &&
+            this._map.options.gestureHandlingOptions.text.scroll &&
+            this._map.options.gestureHandlingOptions.text.scrollMac
         ) {
-            languageContent = this._map.options.gestureHandlingText;
+            languageContent = this._map.options.gestureHandlingOptions.text;
         } else {
             //Otherwise auto set it from the language files
 
@@ -218,7 +233,7 @@ export var GestureHandling = L.Handler.extend({
                         "leaflet-gesture-handling-scroll-warning"
                     );
                 }
-            }, 1000);
+            }, this._map.options.gestureHandlingOptions.duration);
         }
     },
 
