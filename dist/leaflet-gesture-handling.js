@@ -355,13 +355,13 @@
             this._map._container.addEventListener("click", this._handleTouch);
 
             L.DomEvent.on(this._map._container, "mousewheel", this._handleScroll, this);
-            L.DomEvent.on(this._map._container, "mouseover", this._handleMouseOver, this);
-            L.DomEvent.on(this._map._container, "mouseout", this._handleMouseOut, this);
+            L.DomEvent.on(this._map, "mouseover", this._handleMouseOver, this);
+            L.DomEvent.on(this._map, "mouseout", this._handleMouseOut, this);
 
             // Listen to these events so will not disable dragging if the user moves the mouse out the boundary of the map container whilst actively dragging the map.
-            L.DomEvent.on(this._map._container, 'movestart', this._handleDragging, this);
-            L.DomEvent.on(this._map._container, 'move', this._handleDragging, this);
-            L.DomEvent.on(this._map._container, 'moveend', this._handleDragging, this);
+            L.DomEvent.on(this._map, 'movestart', this._handleDragging, this);
+            L.DomEvent.on(this._map, 'move', this._handleDragging, this);
+            L.DomEvent.on(this._map, 'moveend', this._handleDragging, this);
         },
 
         removeHooks: function () {
@@ -373,8 +373,8 @@
             this._map._container.removeEventListener("click", this._handleTouch);
 
             L.DomEvent.off(this._map._container, "mousewheel", this._handleScroll, this);
-            L.DomEvent.off(this._map._container, "mouseover", this._handleMouseOver, this);
-            L.DomEvent.off(this._map._container, "mouseout", this._handleMouseOut, this);
+            L.DomEvent.off(this._map, "mouseover", this._handleMouseOver, this);
+            L.DomEvent.off(this._map, "mouseout", this._handleMouseOut, this);
 
             L.DomEvent.off(this._map, 'movestart', this._handleDragging, this);
             L.DomEvent.off(this._map, 'move', this._handleDragging, this);
