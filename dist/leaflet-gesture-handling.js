@@ -352,6 +352,7 @@
             this._map._container.addEventListener("touchstart", this._handleTouch);
             this._map._container.addEventListener("touchmove", this._handleTouch);
             this._map._container.addEventListener("touchend", this._handleTouch);
+            this._map._container.addEventListener("touchcancel", this._handleTouch);
             this._map._container.addEventListener("click", this._handleTouch);
 
             L.DomEvent.on(this._map._container, "mousewheel", this._handleScroll, this);
@@ -370,6 +371,7 @@
             this._map._container.removeEventListener("touchstart", this._handleTouch);
             this._map._container.removeEventListener("touchmove", this._handleTouch);
             this._map._container.removeEventListener("touchend", this._handleTouch);
+            this._map._container.removeEventListener("touchcancel", this._handleTouch);
             this._map._container.removeEventListener("click", this._handleTouch);
 
             L.DomEvent.off(this._map._container, "mousewheel", this._handleScroll, this);
@@ -491,12 +493,16 @@
                 return;
             }
             // screenLog(e.type+' '+e.touches.length);
-
-            if ((e.type === "touchmove" || e.type === "touchstart") && e.touches.length === 1) {
-                e.currentTarget.classList.add("leaflet-gesture-handling-touch-warning");
+            if (e.type !== "touchmove" && e.type !== "touchstart") {
+                this._map._container.classList.remove("leaflet-gesture-handling-touch-warning");
+                return;
+            }
+            if (e.touches.length === 1) {
+                this._map._container.classList.add("leaflet-gesture-handling-touch-warning");
                 this._disableInteractions();
             } else {
-                e.target.classList.remove("leaflet-gesture-handling-touch-warning");
+                this._enableInteractions();
+                this._map._container.classList.remove("leaflet-gesture-handling-touch-warning");
             }
         },
 
