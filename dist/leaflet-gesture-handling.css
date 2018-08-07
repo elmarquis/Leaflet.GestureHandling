@@ -39,8 +39,5 @@
   -webkit-animation: leaflet-gestures-fadein 0.8s forwards;
           animation: leaflet-gestures-fadein 0.8s forwards; }
 
-.leaflet-gesture-handling-touch-warning:after {
+.leaflet-gesture-handling-touch-warning:after, .leaflet-gesture-handling-scroll-warning:after{
   content: attr(data-gesture-handling-touch-content); }
-
-.leaflet-gesture-handling-scroll-warning:after {
-  content: attr(data-gesture-handling-scroll-content); }
