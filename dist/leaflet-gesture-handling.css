@@ -32,15 +32,12 @@
   right: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.5);
-  z-index: 9999;
+  z-index: 461;
   pointer-events: none; }
 
 .leaflet-gesture-handling-touch-warning:after, .leaflet-gesture-handling-scroll-warning:after {
   -webkit-animation: leaflet-gestures-fadein 0.8s forwards;
           animation: leaflet-gestures-fadein 0.8s forwards; }
 
-.leaflet-gesture-handling-touch-warning:after {
+.leaflet-gesture-handling-touch-warning:after, .leaflet-gesture-handling-scroll-warning:after{
   content: attr(data-gesture-handling-touch-content); }
-
-.leaflet-gesture-handling-scroll-warning:after {
-  content: attr(data-gesture-handling-scroll-content); }
