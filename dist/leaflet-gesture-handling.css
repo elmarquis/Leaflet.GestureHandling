@@ -14,7 +14,7 @@
   -webkit-animation: leaflet-gestures-fadein 0.8s backwards;
           animation: leaflet-gestures-fadein 0.8s backwards;
   color: #fff;
-  font-family: 'Roboto', Arial, sans-serif;
+  font-family: "Roboto", Arial, sans-serif;
   font-size: 22px;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
@@ -35,7 +35,8 @@
   z-index: 461;
   pointer-events: none; }
 
-.leaflet-gesture-handling-touch-warning:after, .leaflet-gesture-handling-scroll-warning:after {
+.leaflet-gesture-handling-touch-warning:after,
+.leaflet-gesture-handling-scroll-warning:after {
   -webkit-animation: leaflet-gestures-fadein 0.8s forwards;
           animation: leaflet-gestures-fadein 0.8s forwards; }
 
