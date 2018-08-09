@@ -1,6 +1,6 @@
 # Leaflet.GestureHandling
 
-Version 1.1.5
+Version 1.1.6
 
 Brings the basic functionality of [Google Maps Gesture Handling](https://developers.google.com/maps/documentation/javascript/examples/interaction-cooperative) into Leaflet.
 
