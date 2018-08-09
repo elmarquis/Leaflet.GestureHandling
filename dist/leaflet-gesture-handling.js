@@ -327,7 +327,7 @@
 
     /*
     * * Leaflet Gesture Handling **
-    * * Version 1.1.5
+    * * Version 1.1.6
     */
 
     L.Map.mergeOptions({
@@ -352,6 +352,7 @@
             this._map._container.addEventListener("touchstart", this._handleTouch);
             this._map._container.addEventListener("touchmove", this._handleTouch);
             this._map._container.addEventListener("touchend", this._handleTouch);
+            this._map._container.addEventListener("touchcancel", this._handleTouch);
             this._map._container.addEventListener("click", this._handleTouch);
 
             L.DomEvent.on(this._map._container, "mousewheel", this._handleScroll, this);
@@ -359,9 +360,9 @@
             L.DomEvent.on(this._map, "mouseout", this._handleMouseOut, this);
 
             // Listen to these events so will not disable dragging if the user moves the mouse out the boundary of the map container whilst actively dragging the map.
-            L.DomEvent.on(this._map, 'movestart', this._handleDragging, this);
-            L.DomEvent.on(this._map, 'move', this._handleDragging, this);
-            L.DomEvent.on(this._map, 'moveend', this._handleDragging, this);
+            L.DomEvent.on(this._map, "movestart", this._handleDragging, this);
+            L.DomEvent.on(this._map, "move", this._handleDragging, this);
+            L.DomEvent.on(this._map, "moveend", this._handleDragging, this);
         },
 
         removeHooks: function () {
@@ -370,21 +371,22 @@
             this._map._container.removeEventListener("touchstart", this._handleTouch);
             this._map._container.removeEventListener("touchmove", this._handleTouch);
             this._map._container.removeEventListener("touchend", this._handleTouch);
+            this._map._container.removeEventListener("touchcancel", this._handleTouch);
             this._map._container.removeEventListener("click", this._handleTouch);
 
             L.DomEvent.off(this._map._container, "mousewheel", this._handleScroll, this);
             L.DomEvent.off(this._map, "mouseover", this._handleMouseOver, this);
             L.DomEvent.off(this._map, "mouseout", this._handleMouseOut, this);
 
-            L.DomEvent.off(this._map, 'movestart', this._handleDragging, this);
-            L.DomEvent.off(this._map, 'move', this._handleDragging, this);
-            L.DomEvent.off(this._map, 'moveend', this._handleDragging, this);
+            L.DomEvent.off(this._map, "movestart", this._handleDragging, this);
+            L.DomEvent.off(this._map, "move", this._handleDragging, this);
+            L.DomEvent.off(this._map, "moveend", this._handleDragging, this);
         },
 
         _handleDragging: function (e) {
-            if (e.type == 'movestart' || e.type == 'move') {
+            if (e.type == "movestart" || e.type == "move") {
                 draggingMap = true;
-            } else if (e.type == 'moveend') {
+            } else if (e.type == "moveend") {
                 draggingMap = false;
             }
         },
@@ -406,7 +408,6 @@
         },
 
         _setupPluginOptions: function () {
-
             //For backwards compatibility, merge gestureHandlingText into the new options object
             if (this._map.options.gestureHandlingText) {
                 this._map.options.gestureHandlingOptions.text = this._map.options.gestureHandlingText;
@@ -472,9 +473,8 @@
         },
 
         _handleTouch: function (e) {
-
             //Disregard touch events on the minimap if present
-            var ignoreList = ['leaflet-control-minimap', 'leaflet-interactive', 'leaflet-popup-content', 'leaflet-popup-content-wrapper', 'leaflet-popup-close-button', 'leaflet-control-zoom-in', 'leaflet-control-zoom-out'];
+            var ignoreList = ["leaflet-control-minimap", "leaflet-interactive", "leaflet-popup-content", "leaflet-popup-content-wrapper", "leaflet-popup-close-button", "leaflet-control-zoom-in", "leaflet-control-zoom-out"];
 
             var ignoreElement = false;
             for (var i = 0; i < ignoreList.length; i++) {
@@ -484,21 +484,25 @@
             }
 
             if (ignoreElement) {
-                if (e.target.classList.contains('leaflet-interactive') && e.type === 'touchmove' && e.touches.length === 1) {
-                    this._map._container.classList.add('leaflet-gesture-handling-touch-warning');
+                if (e.target.classList.contains("leaflet-interactive") && e.type === "touchmove" && e.touches.length === 1) {
+                    this._map._container.classList.add("leaflet-gesture-handling-touch-warning");
                     this._disableInteractions();
                 } else {
-                    this._map._container.classList.remove('leaflet-gesture-handling-touch-warning');
+                    this._map._container.classList.remove("leaflet-gesture-handling-touch-warning");
                 }
                 return;
             }
             // screenLog(e.type+' '+e.touches.length);
-
-            if ((e.type === 'touchmove' || e.type === 'touchstart') && e.touches.length === 1) {
-                e.currentTarget.classList.add('leaflet-gesture-handling-touch-warning');
+            if (e.type !== "touchmove" && e.type !== "touchstart") {
+                this._map._container.classList.remove("leaflet-gesture-handling-touch-warning");
+                return;
+            }
+            if (e.touches.length === 1) {
+                this._map._container.classList.add("leaflet-gesture-handling-touch-warning");
                 this._disableInteractions();
             } else {
-                e.target.classList.remove('leaflet-gesture-handling-touch-warning');
+                this._enableInteractions();
+                this._map._container.classList.remove("leaflet-gesture-handling-touch-warning");
             }
         },
 
@@ -537,7 +541,6 @@
         },
 
         _isScrolling: false
-
     });
 
     L.Map.addInitHook("addHandler", "gestureHandling", GestureHandling);
