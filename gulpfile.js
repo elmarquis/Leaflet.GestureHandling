@@ -58,10 +58,11 @@ gulp.task("dev", function() {
     gulp.run("styles");
     gulp.run("js");
     gulp.watch("src/scss/*.scss", ["styles"]);
-    gulp.watch("src/js/*.js", ["js"]);
+    gulp.watch("src/js/*.js", ["lint", "js"]);
 });
 
 gulp.task("build", function() {
+    gulp.run("test");
     gulp.run("styles");
     gulp.run("js");
 });
