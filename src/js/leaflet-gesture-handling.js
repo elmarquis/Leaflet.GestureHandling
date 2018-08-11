@@ -193,23 +193,23 @@ export var GestureHandling = L.Handler.extend({
 
         var ignoreElement = false;
         for (var i = 0; i < ignoreList.length; i++) {
-            if (e.target.classList.contains(ignoreList[i])) {
+            if (L.DomUtil.hasClass(e.target, ignoreList[i])) {
                 ignoreElement = true;
             }
         }
 
         if (ignoreElement) {
             if (
-                e.target.classList.contains("leaflet-interactive") &&
+                L.DomUtil.hasClass(e.target, "leaflet-interactive") &&
                 e.type === "touchmove" &&
                 e.touches.length === 1
             ) {
-                this._map._container.classList.add(
+                L.DomUtil.addClass(this._map._container,
                     "leaflet-gesture-handling-touch-warning"
                 );
                 this._disableInteractions();
             } else {
-                this._map._container.classList.remove(
+                L.DomUtil.removeClass(this._map._container, 
                     "leaflet-gesture-handling-touch-warning"
                 );
             }
@@ -217,19 +217,19 @@ export var GestureHandling = L.Handler.extend({
         }
         // screenLog(e.type+' '+e.touches.length);
         if (e.type !== "touchmove" && e.type !== "touchstart") {
-            this._map._container.classList.remove(
+            L.DomUtil.removeClass(this._map._container,
                 "leaflet-gesture-handling-touch-warning"
             );
             return;
         }
         if (e.touches.length === 1) {
-            this._map._container.classList.add(
+            L.DomUtil.addClass(this._map._container, 
                 "leaflet-gesture-handling-touch-warning"
             );
             this._disableInteractions();
         } else {
             this._enableInteractions();
-            this._map._container.classList.remove(
+            L.DomUtil.removeClass(this._map._container, 
                 "leaflet-gesture-handling-touch-warning"
             );
         }
@@ -240,12 +240,12 @@ export var GestureHandling = L.Handler.extend({
     _handleScroll: function(e) {
         if (e.metaKey || e.ctrlKey) {
             e.preventDefault();
-            this._map._container.classList.remove(
+            L.DomUtil.removeClass(this._map._container,
                 "leaflet-gesture-handling-scroll-warning"
             );
             this._map.scrollWheelZoom.enable();
         } else {
-            this._map._container.classList.add(
+            L.DomUtil.addClass(this._map._container,
                 "leaflet-gesture-handling-scroll-warning"
             );
             this._map.scrollWheelZoom.disable();
@@ -259,7 +259,7 @@ export var GestureHandling = L.Handler.extend({
                     "leaflet-gesture-handling-scroll-warning"
                 );
                 for (var i = 0; i < warnings.length; i++) {
-                    warnings[i].classList.remove(
+                    L.DomUtil.removeClass(warnings[i],
                         "leaflet-gesture-handling-scroll-warning"
                     );
                 }
