@@ -4,10 +4,19 @@ var gulp = require("gulp"),
     uglify = require("gulp-uglify"),
     prefix = require("gulp-autoprefixer"),
     sass = require("gulp-sass"),
+    eslint = require("gulp-eslint"),
     sourcemaps = require("gulp-sourcemaps"),
     rename = require("gulp-rename"),
     rollup = require("gulp-better-rollup"),
     babel = require("rollup-plugin-babel");
+
+gulp.task("lint", function () {
+    return gulp
+        .src("src/js/**.js")
+        .pipe(eslint())
+        .pipe(eslint.format())
+        .pipe(eslint.failAfterError());
+});
 
 gulp.task("js", function() {
     return gulp
@@ -39,6 +48,10 @@ gulp.task("styles", function() {
         .pipe(minifyCSS())
         .pipe(rename({ extname: ".min.css" }))
         .pipe(gulp.dest("dist/"));
+});
+
+gulp.task("test", function () {
+    gulp.run("lint");
 });
 
 gulp.task("dev", function() {
