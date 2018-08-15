@@ -277,7 +277,7 @@ export var GestureHandling = L.Handler.extend({
         }
     },
 
-    _isScrolling: false
+    //_isScrolling: false
 });
 
 L.Map.addInitHook("addHandler", "gestureHandling", GestureHandling);
