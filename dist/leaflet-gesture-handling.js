@@ -327,7 +327,7 @@
 
     /*
     * * Leaflet Gesture Handling **
-    * * Version 1.1.6
+    * * Version 1.1.7
     */
 
     L.Map.mergeOptions({
@@ -538,9 +538,8 @@
             if (!draggingMap) {
                 this._disableInteractions();
             }
-        },
+        }
 
-        _isScrolling: false
     });
 
     L.Map.addInitHook("addHandler", "gestureHandling", GestureHandling);
