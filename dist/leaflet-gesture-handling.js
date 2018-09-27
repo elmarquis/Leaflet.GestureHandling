@@ -333,7 +333,9 @@
     L.Map.mergeOptions({
         gestureHandlingOptions: {
             text: {},
-            duration: 1000
+            duration: 1000,
+            onDragStart: null,
+            onDragEnd: null
         }
     });
 
@@ -341,6 +343,7 @@
 
     var GestureHandling = L.Handler.extend({
         addHooks: function () {
+
             this._handleTouch = this._handleTouch.bind(this);
 
             this._setupPluginOptions();
@@ -383,11 +386,22 @@
             L.DomEvent.off(this._map, "moveend", this._handleDragging, this);
         },
 
+        //Desktop only (doesn't apply to touch events)
         _handleDragging: function (e) {
             if (e.type == "movestart" || e.type == "move") {
                 draggingMap = true;
+
+                //Trigger the drag start callback
+                if (e.type == "movestart" && typeof this._map.options.gestureHandlingOptions.onDragStart === "function") {
+                    this._map.options.gestureHandlingOptions.onDragStart();
+                }
             } else if (e.type == "moveend") {
                 draggingMap = false;
+
+                //Trigger the drag end callback
+                if (typeof this._map.options.gestureHandlingOptions.onDragEnd === "function") {
+                    this._map.options.gestureHandlingOptions.onDragEnd();
+                }
             }
         },
 
@@ -498,11 +512,23 @@
                 return;
             }
             if (e.touches.length === 1) {
+                // Just a single finger. Prevent map dragging
                 this._map._container.classList.add("leaflet-gesture-handling-touch-warning");
                 this._disableInteractions();
             } else {
+                // Using multiple fingers. Allow map dragging
                 this._enableInteractions();
                 this._map._container.classList.remove("leaflet-gesture-handling-touch-warning");
+
+                //Trigger the drag start callback
+                if (e.type == "touchstart" && typeof this._map.options.gestureHandlingOptions.onDragStart === "function") {
+                    this._map.options.gestureHandlingOptions.onDragStart();
+                }
+
+                //Trigger the drag start callback
+                if (e.type == "touchend" && typeof this._map.options.gestureHandlingOptions.onDragEnd === "function") {
+                    this._map.options.gestureHandlingOptions.onDragEnd();
+                }
             }
         },
 
