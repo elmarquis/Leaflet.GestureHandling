@@ -6,8 +6,7 @@ var gulp = require("gulp"),
     sass = require("gulp-sass"),
     sourcemaps = require("gulp-sourcemaps"),
     rename = require("gulp-rename"),
-    rollup = require("gulp-better-rollup"),
-    babel = require("rollup-plugin-babel");
+    rollup = require("gulp-better-rollup");
 
 gulp.task("js", function() {
     return gulp
@@ -15,7 +14,6 @@ gulp.task("js", function() {
         .pipe(sourcemaps.init())
         .pipe(
             rollup(
-                { plugins: [babel()] },
                 {
                     file: "dist/leaflet-gesture-handling.js",
                     format: "umd"
