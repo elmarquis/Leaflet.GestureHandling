@@ -9,6 +9,13 @@ var gulp = require("gulp"),
     rollup = require("gulp-better-rollup"),
     babel = require("rollup-plugin-babel");
 
+gulp.task("es6", function() {
+    return gulp
+        .src("src/js/*.js")
+        .pipe(rename({ extname: ".mjs" }))
+        .pipe(gulp.dest("dist"));
+});
+
 gulp.task("js", function() {
     return gulp
         .src("src/js/leaflet-gesture-handling.js")
@@ -48,7 +55,4 @@ gulp.task("dev", function() {
     gulp.watch("src/js/*.js", ["js"]);
 });
 
-gulp.task("build", function() {
-    gulp.run("styles");
-    gulp.run("js");
-});
+gulp.task("build", ["styles", "js", "es6"]);
