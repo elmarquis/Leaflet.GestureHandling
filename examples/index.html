@@ -90,11 +90,14 @@
         zoom: 3,
         gestureHandling: true,
         gestureHandlingOptions: {
+            // duration: 1000
             onDragStart: function() {
                 //do stuff on drag start
+                console.log('starting');
             },
             onDragEnd: function() {
                 //do stuff on drag end
+                console.log('ending');
             }
         }
     });

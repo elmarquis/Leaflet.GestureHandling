@@ -4,19 +4,20 @@
 */
 import LanguageContent from "./language-content";
 
-L.Map.mergeOptions({
-    gestureHandlingOptions: {
-        text: {},
-        duration: 1000,
-        onDragStart: null,
-        onDragEnd: null
-    }
-});
+var options = {
+    text: {},
+    duration: 1000,
+    onDragStart: null,
+    onDragEnd: null
+};
 
 var draggingMap = false;
 
 export var GestureHandling = L.Handler.extend({
     addHooks: function() {
+
+        // Merge options
+        Object.assign(options, this._map.options.gestureHandlingOptions);
         
         this._handleTouch = this._handleTouch.bind(this);
 
@@ -85,16 +86,16 @@ export var GestureHandling = L.Handler.extend({
             draggingMap = true;
 
             //Trigger the drag start callback
-            if (e.type ==  "movestart" && typeof this._map.options.gestureHandlingOptions.onDragStart === "function") {
-                this._map.options.gestureHandlingOptions.onDragStart();
+            if (e.type ==  "movestart" && typeof options.onDragStart === "function") {
+                options.onDragStart();
             }
 
         } else if (e.type == "moveend") {
             draggingMap = false;
             
             //Trigger the drag end callback
-            if (typeof this._map.options.gestureHandlingOptions.onDragEnd === "function") {
-                this._map.options.gestureHandlingOptions.onDragEnd();
+            if (typeof options.onDragEnd === "function") {
+                options.onDragEnd();
             }
         }
     },
@@ -118,7 +119,7 @@ export var GestureHandling = L.Handler.extend({
     _setupPluginOptions: function() {
         //For backwards compatibility, merge gestureHandlingText into the new options object
         if (this._map.options.gestureHandlingText) {
-            this._map.options.gestureHandlingOptions.text = this._map.options.gestureHandlingText;
+            options.text = this._map.options.gestureHandlingText;
         }
     },
 
@@ -126,13 +127,13 @@ export var GestureHandling = L.Handler.extend({
         var languageContent;
         //If user has supplied custom language, use that
         if (
-            this._map.options.gestureHandlingOptions &&
-            this._map.options.gestureHandlingOptions.text &&
-            this._map.options.gestureHandlingOptions.text.touch &&
-            this._map.options.gestureHandlingOptions.text.scroll &&
-            this._map.options.gestureHandlingOptions.text.scrollMac
+            options &&
+            options.text &&
+            options.text.touch &&
+            options.text.scroll &&
+            options.text.scrollMac
         ) {
-            languageContent = this._map.options.gestureHandlingOptions.text;
+            languageContent = options.text;
         } else {
             //Otherwise auto set it from the language files
 
@@ -252,13 +253,13 @@ export var GestureHandling = L.Handler.extend({
 
             
             //Trigger the drag start callback
-            if (e.type == "touchstart" && typeof this._map.options.gestureHandlingOptions.onDragStart === "function") {
-                this._map.options.gestureHandlingOptions.onDragStart();
+            if (e.type == "touchstart" && typeof options.onDragStart === "function") {
+                options.onDragStart();
             }
 
             //Trigger the drag start callback
-            if (e.type == "touchend" && typeof this._map.options.gestureHandlingOptions.onDragEnd === "function") {
-                this._map.options.gestureHandlingOptions.onDragEnd();
+            if (e.type == "touchend" && typeof options.onDragEnd === "function") {
+                options.onDragEnd();
             }
         }
     },
@@ -291,7 +292,7 @@ export var GestureHandling = L.Handler.extend({
                         "leaflet-gesture-handling-scroll-warning"
                     );
                 }
-            }, this._map.options.gestureHandlingOptions.duration);
+            }, options.duration);
         }
     },
 
