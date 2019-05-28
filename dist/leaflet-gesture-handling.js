@@ -423,7 +423,7 @@
                 //Otherwise auto set it from the language files
 
                 //Determine their language e.g fr or en-US
-                var lang = this._getUserLanguage();
+                var lang = this._map.options.gestureHandlingOptions.locale || this._getUserLanguage();
 
                 //If we couldn't find it default to en
                 if (!lang) {
