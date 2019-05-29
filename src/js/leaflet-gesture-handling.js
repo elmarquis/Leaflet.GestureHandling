@@ -4,12 +4,9 @@
 */
 import LanguageContent from "./language-content";
 
-L.Map.mergeOptions({
-    gestureHandlingOptions: {
-        text: {},
-        duration: 1000
-    }
-});
+var gestureHandlingOptions = {
+    duration: 1000
+};
 
 var draggingMap = false;
 
@@ -103,8 +100,12 @@ export var GestureHandling = L.Handler.extend({
     _setupPluginOptions: function() {
         //For backwards compatibility, merge gestureHandlingText into the new options object
         if (this._map.options.gestureHandlingText) {
-            this._map.options.gestureHandlingOptions.text = this._map.options.gestureHandlingText;
+            this._map.options.gestureHandlingOptions = L.extend(gestureHandlingOptions, {
+                text: this._map.options.gestureHandlingText
+            });
         }
+
+        this._map.options.gestureHandlingOptions = L.extend(gestureHandlingOptions, this._map.options.gestureHandlingOptions);
     },
 
     _setLanguageContent: function() {
@@ -122,7 +123,7 @@ export var GestureHandling = L.Handler.extend({
             //Otherwise auto set it from the language files
 
             //Determine their language e.g fr or en-US
-            var lang = this._getUserLanguage();
+            var lang = this._map.options.gestureHandlingOptions.locale || this._getUserLanguage();
 
             //If we couldn't find it default to en
             if (!lang) {

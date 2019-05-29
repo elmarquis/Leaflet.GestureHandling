@@ -330,12 +330,9 @@
     * * Version 1.1.8
     */
 
-    L.Map.mergeOptions({
-        gestureHandlingOptions: {
-            text: {},
-            duration: 1000
-        }
-    });
+    var gestureHandlingOptions = {
+        duration: 1000
+    };
 
     var draggingMap = false;
 
@@ -410,8 +407,12 @@
         _setupPluginOptions: function () {
             //For backwards compatibility, merge gestureHandlingText into the new options object
             if (this._map.options.gestureHandlingText) {
-                this._map.options.gestureHandlingOptions.text = this._map.options.gestureHandlingText;
+                this._map.options.gestureHandlingOptions = L.extend(gestureHandlingOptions, {
+                    text: this._map.options.gestureHandlingText
+                });
             }
+
+            this._map.options.gestureHandlingOptions = L.extend(gestureHandlingOptions, this._map.options.gestureHandlingOptions);
         },
 
         _setLanguageContent: function () {
@@ -423,7 +424,7 @@
                 //Otherwise auto set it from the language files
 
                 //Determine their language e.g fr or en-US
-                var lang = this._getUserLanguage();
+                var lang = this._map.options.gestureHandlingOptions.locale || this._getUserLanguage();
 
                 //If we couldn't find it default to en
                 if (!lang) {
