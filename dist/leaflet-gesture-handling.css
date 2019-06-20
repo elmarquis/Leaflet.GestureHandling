@@ -1,18 +1,4 @@
-@-webkit-keyframes leaflet-gestures-fadein {
-  0% {
-    opacity: 0; }
-  100% {
-    opacity: 1; } }
-
-@keyframes leaflet-gestures-fadein {
-  0% {
-    opacity: 0; }
-  100% {
-    opacity: 1; } }
-
-.leaflet-container:after {
-  -webkit-animation: leaflet-gestures-fadein 0.8s backwards;
-          animation: leaflet-gestures-fadein 0.8s backwards;
+.leaflet-gesture-handling:after {
   color: #fff;
   font-family: "Roboto", Arial, sans-serif;
   font-size: 22px;
@@ -32,16 +18,21 @@
   right: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.5);
-  z-index: 461;
-  pointer-events: none; }
+  z-index: 1001;
+  pointer-events: none;
+  text-align: center;
+  -webkit-transition: opacity 0.8s ease-in-out;
+  transition: opacity 0.8s ease-in-out;
+  opacity: 0;
+  content: ""; }
 
-.leaflet-gesture-handling-touch-warning:after,
-.leaflet-gesture-handling-scroll-warning:after {
-  -webkit-animation: leaflet-gestures-fadein 0.8s forwards;
-          animation: leaflet-gestures-fadein 0.8s forwards; }
+.leaflet-gesture-handling-warning:after {
+  -webkit-transition-duration: 0.3s;
+          transition-duration: 0.3s;
+  opacity: 1; }
 
-.leaflet-gesture-handling-touch-warning:after {
+.leaflet-gesture-handling-touch:after {
   content: attr(data-gesture-handling-touch-content); }
 
-.leaflet-gesture-handling-scroll-warning:after {
+.leaflet-gesture-handling-scroll:after {
   content: attr(data-gesture-handling-scroll-content); }
