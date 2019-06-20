@@ -329,13 +329,11 @@
      * * Leaflet Gesture Handling **
      * * Version 1.1.9
      */
-    L.Map.mergeOptions({
-      gestureHandlingOptions: {
-        text: {},
-        duration: 1700
-      }
-    });
     var draggingMap = false;
+    var gestureHandlingOptions = {
+      text: {},
+      duration: 1700
+    };
     var GestureHandling = L.Handler.extend({
       _isScrolling: false,
       _isTouching: false,
@@ -427,8 +425,8 @@
       _isMacUser: function () {
         return navigator.platform.toUpperCase().indexOf("MAC") >= 0;
       },
-      _parseGestureHandlingOptions: function (options) {
-        options = options || this._map.options.gestureHandlingOptions || {}; //For backwards compatibility, merge gestureHandlingText into the new options object
+      _parseGestureHandlingOptions: function () {
+        var options = L.extend(this._map.options.gestureHandlingOptions, gestureHandlingOptions); //For backwards compatibility, merge gestureHandlingText into the new options object
 
         if (this._map.options.gestureHandlingText) {
           options.text = this._map.options.gestureHandlingText;
@@ -436,8 +434,8 @@
 
         return options;
       },
-      _setGestureHandlingOptions: function (options) {
-        var opts = this._parseGestureHandlingOptions(options); //If user has supplied custom language, use that, otherwise auto set it from the language files
+      _setGestureHandlingOptions: function () {
+        var opts = this._parseGestureHandlingOptions(); //If user has supplied custom language, use that, otherwise auto set it from the language files
 
 
         var content = this._isLanguageContent(opts.text) ? opts.text : this._getLanguageContent(opts.locale);
@@ -537,6 +535,9 @@
       _handleMouseOut: function (e) {
         if (!draggingMap) this._disableInteractions();
       }
+    });
+    L.Map.mergeOptions({
+      gestureHandlingOptions: gestureHandlingOptions
     });
     L.Map.addInitHook("addHandler", "gestureHandling", GestureHandling);
 
