@@ -1,6 +1,6 @@
 {
     "name": "leaflet-gesture-handling",
-    "version": "1.1.8",
+    "version": "1.1.9",
     "description": "Prompt mobile user to use 2 fingers to move the map. Prompt desktop users to use Ctrl+Mouse Wheel to zoom. Brings Google Maps gesture handling into Leaflet. ",
     "main": "./dist/leaflet-gesture-handling.min.js",
     "files": [
@@ -35,17 +35,20 @@
     },
     "homepage": "https://github.com/elmarquis/leaflet-gesture-handling#readme",
     "devDependencies": {
+        "@babel/core": "^7.4.5",
         "babel-core": "^6.26.3",
-        "gulp": "^3.9.1",
-        "gulp-autoprefixer": "^5.0.0",
-        "gulp-better-rollup": "^3.3.0",
+        "gulp": "^4.0.2",
+        "gulp-autoprefixer": "^6.1.0",
+        "gulp-better-rollup": "^4.0.1",
         "gulp-concat": "^2.6.1",
         "gulp-minify-css": "^1.2.4",
-        "gulp-rename": "^1.2.3",
-        "gulp-sass": "^4.0.1",
-        "gulp-sourcemaps": "^2.6.4",
-        "gulp-uglify": "^3.0.0",
-        "prettier": "^1.14.0",
-        "rollup-plugin-babel": "^3.0.7"
+        "gulp-rename": "^1.4.0",
+        "gulp-sass": "^4.0.2",
+        "gulp-sourcemaps": "^2.6.5",
+        "gulp-uglify": "^3.0.2",
+        "natives": "^1.1.6",
+        "prettier": "^1.18.2",
+        "rollup": "^1.15.6",
+        "rollup-plugin-babel": "^4.3.2"
     }
 }

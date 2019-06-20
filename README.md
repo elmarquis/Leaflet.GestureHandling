@@ -1,6 +1,6 @@
 # Leaflet.GestureHandling
 
-Version 1.1.8
+Version 1.1.9
 
 Brings the basic functionality of [Google Maps Gesture Handling](https://developers.google.com/maps/documentation/javascript/examples/interaction-cooperative) into Leaflet.
 
@@ -86,7 +86,7 @@ const map = L.map("map", {
 
 ## Multi Language and Custom Text
 
-The plugin will auto detect a users language from the browser setting and show the appropriate translation. 52 languages are supported without you needing to do anything. 
+The plugin will auto detect a users language from the browser setting and show the appropriate translation. 52 languages are supported without you needing to do anything.
 
 However if you wish to override this, you can set your own text by supplying **gestureHandlingOptions** and a **text** option as shown below. You must specify text for touch, scroll and scrollMac.
 
@@ -105,13 +105,14 @@ var map = L.map("map", {
 });
 ```
 
-*Note: Earlier versions used a property called gestureHandlingText for this which still works. 
+*Note: Earlier versions used a property called gestureHandlingText for this which still works.
 
 ## Other Options
 
 To pass in options use the property: **gestureHandlingOptions**.  
 
 - **duration** : (int) time in ms before the message should disappear. default: 1000 (1 sec)
+- **locale** : (string) default locale language of the warning message. default: undefined (eg. 'en')
 
 ```js
 var map = L.map("map", {
@@ -120,6 +121,7 @@ var map = L.map("map", {
     gestureHandling: true,
     gestureHandlingOptions: {
         duration: 5000 //5 secs
+        locale: 'en',
     }
 });
 ```
