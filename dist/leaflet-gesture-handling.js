@@ -327,7 +327,7 @@
 
     /*
     * * Leaflet Gesture Handling **
-    * * Version 1.1.8
+    * * Version 1.1.9
     */
 
     L.Map.mergeOptions({
@@ -342,6 +342,8 @@
     var GestureHandling = L.Handler.extend({
         addHooks: function () {
             this._handleTouch = this._handleTouch.bind(this);
+            this._handleMouseOver = this._handleMouseOver.bind(this);
+            this._handleMouseOut = this._handleMouseOut.bind(this);
 
             this._setupPluginOptions();
             this._setLanguageContent();
@@ -356,8 +358,8 @@
             this._map._container.addEventListener("click", this._handleTouch);
 
             L.DomEvent.on(this._map._container, "mousewheel", this._handleScroll, this);
-            L.DomEvent.on(this._map, "mouseover", this._handleMouseOver, this);
-            L.DomEvent.on(this._map, "mouseout", this._handleMouseOut, this);
+            this._map._container.addEventListener("mouseenter", this._handleMouseOver);
+            this._map._container.addEventListener("mouseleave", this._handleMouseOut);
 
             // Listen to these events so will not disable dragging if the user moves the mouse out the boundary of the map container whilst actively dragging the map.
             L.DomEvent.on(this._map, "movestart", this._handleDragging, this);
@@ -375,8 +377,8 @@
             this._map._container.removeEventListener("click", this._handleTouch);
 
             L.DomEvent.off(this._map._container, "mousewheel", this._handleScroll, this);
-            L.DomEvent.off(this._map, "mouseover", this._handleMouseOver, this);
-            L.DomEvent.off(this._map, "mouseout", this._handleMouseOut, this);
+            this._map._container.addEventListener("mouseenter", this._handleMouseOver);
+            this._map._container.addEventListener("mouseleave", this._handleMouseOut);
 
             L.DomEvent.off(this._map, "movestart", this._handleDragging, this);
             L.DomEvent.off(this._map, "move", this._handleDragging, this);
