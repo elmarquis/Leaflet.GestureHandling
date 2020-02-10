@@ -40,8 +40,12 @@ Include the css and js file after leaflet.js.
 Or load this directly from [UNPKG](https://unpkg.com):
 
 ```html
-<link rel="stylesheet" href="//unpkg.com/leaflet-gesture-handling/dist/leaflet-gesture-handling.min.css" type="text/css">
-<script src="//unpkg.com/leaflet-gesture-handling"></script>
+<link rel="stylesheet" href="//unpkg.com/leaflet-gesture-handling/dist/leaflet-gesture-handling.min.css"
+      integrity="sha384-IKK988kZjVpx+y4Iqax/6yU7EVQx/sHewAKb/iqDCb9tCtgy25bGk5ZINDla9rgv"
+      crossorigin="">
+<script src="//unpkg.com/leaflet-gesture-handling"
+    integrity="sha384-RdmwKdOqJgbZKPQvw3oEhb5NQ1x3Fv9q3Va1LmWnpmvAv2EahT8fiYmdztUzxRZm"
+    crossorigin=""></script>
 ```
 
 Set **gestureHandling: true** in your map initialization script.
