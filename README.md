@@ -54,6 +54,8 @@ var map = L.map("map", {
 });
 ```
 
+Or you can enable and disable this dynamically on an existing map with `map.gestureHandling.enable()` and `map.gestureHandling.disable()`.
+
 ### Use as a module
 
 If you are using a bundler such as Webpack or Parcel, you can load the library as a module. First install the module with:
