@@ -31,7 +31,7 @@ export var GestureHandling = L.Handler.extend({
 
         L.DomEvent.on(
             this._map._container,
-            "mousewheel",
+            "wheel",
             this._handleScroll,
             this
         );
@@ -64,7 +64,7 @@ export var GestureHandling = L.Handler.extend({
 
         L.DomEvent.off(
             this._map._container,
-            "mousewheel",
+            "wheel",
             this._handleScroll,
             this
         );
