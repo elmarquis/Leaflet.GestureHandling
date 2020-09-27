@@ -1,6 +1,6 @@
 {
     "name": "leaflet-gesture-handling",
-    "version": "1.1.8",
+    "version": "1.2.1",
     "description": "Prompt mobile user to use 2 fingers to move the map. Prompt desktop users to use Ctrl+Mouse Wheel to zoom. Brings Google Maps gesture handling into Leaflet. ",
     "main": "./dist/leaflet-gesture-handling.min.js",
     "files": [
