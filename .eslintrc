@@ -1,0 +1,12 @@
+{
+    "extends": "eslint:recommended",
+    "globals": {
+        "L": false
+    },
+    "env": {
+        "browser": true
+    },
+    "parserOptions": {
+        "sourceType": "module"
+    }
+}

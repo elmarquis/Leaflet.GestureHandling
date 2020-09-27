@@ -267,11 +267,11 @@ export var GestureHandling = L.Handler.extend({
         }
     },
 
-    _handleMouseOver: function(e) {
+    _handleMouseOver: function() {
         this._enableInteractions();
     },
 
-    _handleMouseOut: function(e) {
+    _handleMouseOut: function() {
         if (!draggingMap) {
             this._disableInteractions();
         }
