@@ -7,6 +7,7 @@ import LanguageContent from "./language-content";
 L.Map.mergeOptions({
     gestureHandlingOptions: {
         text: {},
+        language: null,
         duration: 1000
     }
 });
@@ -173,6 +174,11 @@ export var GestureHandling = L.Handler.extend({
     },
 
     _getUserLanguage: function() {
+        if (this._map.options.gestureHandlingOptions.language != null) {
+            // Allow users to override
+            return this._map.options.gestureHandlingOptions.language;
+        }
+
         var lang = navigator.languages
             ? navigator.languages[0]
             : navigator.language || navigator.userLanguage;
