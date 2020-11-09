@@ -333,6 +333,7 @@
     L.Map.mergeOptions({
         gestureHandlingOptions: {
             text: {},
+            language: null,
             duration: 1000
         }
     });
@@ -468,6 +469,11 @@
         },
 
         _getUserLanguage: function () {
+            if (this._map.options.gestureHandlingOptions.language != null) {
+                // Allow users to override
+                return this._map.options.gestureHandlingOptions.language;
+            }
+
             var lang = navigator.languages ? navigator.languages[0] : navigator.language || navigator.userLanguage;
             return lang;
         },
