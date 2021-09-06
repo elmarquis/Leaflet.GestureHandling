@@ -178,10 +178,10 @@ export default {
     },
     //Italian
     it: {
-        touch: "Utilizza due dita per spostare la mappa",
-        scroll: "Utilizza CTRL + scorrimento per eseguire lo zoom della mappa",
+        touch: "Usa due dita per spostare la mappa",
+        scroll: "Usa CTRL + scorrimento per ingrandire la mappa",
         scrollMac:
-            "Utilizza \u2318 + scorrimento per eseguire lo zoom della mappa"
+            "Usa \u2318 + scorrimento per ingrandire la mappa"
     },
     //Hebrew
     iw: {
