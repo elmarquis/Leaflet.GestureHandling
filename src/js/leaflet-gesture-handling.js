@@ -252,18 +252,15 @@ export var GestureHandling = L.Handler.extend({
             this._map.scrollWheelZoom.disable();
 
             clearTimeout(this._isScrolling);
+			
+			var container = this._map._container;
 
             // Set a timeout to run after scrolling ends
             this._isScrolling = setTimeout(function() {
                 // Run the callback
-                var warnings = document.getElementsByClassName(
-                    "leaflet-gesture-handling-scroll-warning"
-                );
-                for (var i = 0; i < warnings.length; i++) {
-                    L.DomUtil.removeClass(warnings[i],
-                        "leaflet-gesture-handling-scroll-warning"
-                    );
-                }
+				L.DomUtil.removeClass(container,
+					"leaflet-gesture-handling-scroll-warning"
+				);
             }, this._map.options.gestureHandlingOptions.duration);
         }
     },
