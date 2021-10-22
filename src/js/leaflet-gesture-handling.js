@@ -228,6 +228,7 @@ export var GestureHandling = L.Handler.extend({
             );
             this._disableInteractions();
         } else {
+            e.preventDefault();
             this._enableInteractions();
             L.DomUtil.removeClass(this._map._container, 
                 "leaflet-gesture-handling-touch-warning"
