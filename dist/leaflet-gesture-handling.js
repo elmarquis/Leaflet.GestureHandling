@@ -501,6 +501,7 @@
                 L.DomUtil.addClass(this._map._container, "leaflet-gesture-handling-touch-warning");
                 this._disableInteractions();
             } else {
+                e.preventDefault();
                 this._enableInteractions();
                 L.DomUtil.removeClass(this._map._container, "leaflet-gesture-handling-touch-warning");
             }
