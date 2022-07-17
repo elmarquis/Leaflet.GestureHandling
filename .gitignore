@@ -3,3 +3,4 @@ node_modules/
 *.css.map
 *.js.map
 examples/images/
+package-lock.json
