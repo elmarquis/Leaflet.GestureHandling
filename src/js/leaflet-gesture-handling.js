@@ -216,7 +216,7 @@ export var GestureHandling = L.Handler.extend({
             return;
         }
         // screenLog(e.type+' '+e.touches.length);
-        if (e.type !== "touchmove" && e.type !== "touchstart") {
+        if (e.type !== "touchmove") {
             L.DomUtil.removeClass(this._map._container,
                 "leaflet-gesture-handling-touch-warning"
             );
