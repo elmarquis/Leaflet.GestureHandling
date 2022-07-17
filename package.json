@@ -1,7 +1,7 @@
 {
-    "name": "leaflet-gesture-handling",
-    "version": "1.2.2",
-    "description": "Prompt mobile user to use 2 fingers to move the map. Prompt desktop users to use Ctrl+Mouse Wheel to zoom. Brings Google Maps gesture handling into Leaflet. ",
+    "name": "@zacwang/leaflet-gesture-handling",
+    "version": "1.2.4",
+    "description": "Cloned from elmarquis/Leaflet.GestureHandling. Prompt mobile user to use 2 fingers to move the map. Prompt desktop users to use Ctrl+Mouse Wheel to zoom. Brings Google Maps gesture handling into Leaflet. ",
     "main": "./dist/leaflet-gesture-handling.min.js",
     "files": [
         "dist"
@@ -16,7 +16,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/elmarquis/leaflet-gesture-handling.git"
+        "url": "git+https://github.com/zacwang89/Leaflet.GestureHandling.git"
     },
     "keywords": [
         "Leaflet",
@@ -28,12 +28,12 @@
         "mobile",
         "scroll"
     ],
-    "author": "A Marquis",
+    "author": "Zac",
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/elmarquis/leaflet-gesture-handling/issues"
+        "url": "https://github.com/zacwang89/Leaflet.GestureHandling/issues"
     },
-    "homepage": "https://github.com/elmarquis/leaflet-gesture-handling#readme",
+    "homepage": "https://github.com/zacwang89/Leaflet.GestureHandling#readme",
     "devDependencies": {
         "babel-core": "^6.26.3",
         "gulp": "^3.9.1",
